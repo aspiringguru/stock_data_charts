@@ -1,0 +1,33 @@
+use data collected by code in D:\2020\coding\asx_yfinance
+d:
+cd D:\2020\coding\asx_yfinance\
+copy yf_data_backup3.db D:\2020\coding\flask_plot_asx_data\
+
+#-------------------------------------------------------------------------------
+use plotly templates from D:\2020\coding\plotly_charts
+
+#-------------------------------------------------------------------------------
+use flask templates from D:\2020\coding\google_maps_traffic_jam\flask_server
+
+#-------------------------------------------------------------------------------
+
+d:
+cd D:\2020\coding\flask_plot_asx_data
+
+#-------------------------------------------------------------------------------
+git
+cd /d/2020/coding/flask_plot_asx_data
+#-------------------------------------------------------------------------------
+.gitignore
+*.db
+passwords.py
+bad_errors/
+
+#-------------------------------------------------------------------------------
+cd /d/2020/coding/flask_plot_asx_data
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/aspiringguru/??.git
+git push -u origin main
