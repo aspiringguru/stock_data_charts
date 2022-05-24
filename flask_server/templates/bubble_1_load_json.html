@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- from https://codepen.io/pen
+    https://plotly.com/javascript/bubble-charts/#hover-text-on-bubble-charts
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>title</title>
+    <!--<link rel="stylesheet" href="style.css"> -->
+    <script src='https://cdn.plot.ly/plotly-2.12.1.min.js'></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+    <!-- page content -->
+    <script>
+      console.log("start")
+      d3.json("data_bubble.json", function(data) {
+      //d3.json("prog_languages.json", function(data_) {
+      //d3.json("data_sample.json", function(data_) {
+          console.log("data:", data)
+          console.log("data.length:", data.length)
+          var x=[];
+          var y=[];
+          var labels = [];
+          var sizes = [];
+          var colours = [];
+          for (let i = 0; i < data.length; i++) {
+            x.push(data[i]['x'])
+            y.push(data[i]['y'])
+            sizes.push(data[i]['r'])
+            labels.push(data[i]['label'])
+            colours.push(data[i]['colour'])
+          }
+          console.log("x:", x)
+          console.log("y:", y)
+          console.log("sizes:", sizes)
+          console.log("labels:", labels)
+          console.log("colours:", colours)
+          var trace1 = {
+            x: x,
+            y: y,
+            text: labels,
+            mode: 'markers',
+            marker: {
+              color: colours,
+              size: sizes
+            }
+          };
+          //
+          var data = [trace1];
+          //
+          var layout = {
+            title: 'Bubble Chart Hover Text',
+            showlegend: false,
+            height: 600,
+            width: 600
+          };
+          const config = {
+            displayModeBar: false, // this is the line that hides the bar.
+          };
+          //
+          Plotly.newPlot('myDiv', data, layout, config);
+          console.log("end")
+        });
+      </script>
+  </body>
+</html>
