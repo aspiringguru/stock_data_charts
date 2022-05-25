@@ -1,4 +1,4 @@
 *.db
 passwords.py
 ssd/
-
+flask_server/flask_asx/

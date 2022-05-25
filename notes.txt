@@ -11,6 +11,14 @@ use flask templates from D:\2020\coding\google_maps_traffic_jam\flask_server
 
 #-------------------------------------------------------------------------------
 
+python -m venv flask_asx
+flask_asx\Scripts\activate.bat
+pip install pandas
+pip install flask
+pip install flask_restful
+
+
+
 d:
 cd D:\2020\coding\flask_plot_asx_data
 
@@ -21,7 +29,7 @@ cd /d/2020/coding/flask_plot_asx_data
 .gitignore
 *.db
 passwords.py
-bad_errors/
+ssd/
 
 #-------------------------------------------------------------------------------
 cd /d/2020/coding/flask_plot_asx_data
@@ -29,5 +37,13 @@ git init
 git add .
 git commit -m "first commit"
 git branch -M main
-git remote add origin https://github.com/aspiringguru/??.git
+git remote add origin https://github.com/aspiringguru/stock_data_charts.git
+git push -u origin main
+
+
+git rm --cached  yf_data_backup3.db
+
+
+git add .
+git commit -m "flask server files added"
 git push -u origin main

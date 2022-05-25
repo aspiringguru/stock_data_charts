@@ -1,0 +1,8 @@
+[
+  { "x": 100, "y": 0, "r": 35 , "label":"apples",  "colour":"orange"},
+  { "x": 60, "y": 10, "r": 20 , "label":"oranges", "colour":"orange"},
+  { "x": 40, "y": 10, "r": 25 , "label":"bananas", "colour":"red"},
+  { "x": 80, "y": 10, "r": 30 , "label":"pears",   "colour":"red"},
+  { "x": 20, "y": 30, "r": 25 , "label":"grapes",  "colour":"yellow"},
+  { "x": 0, "y": 100, "r": 30  , "label":"melon",   "colour":"blue"}
+]
