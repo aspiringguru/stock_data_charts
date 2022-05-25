@@ -86,4 +86,4 @@ def home():
 
 if __name__ == '__main__':
     print("start flask server main method.")
-    appFlask.run(debug = True)
+    appFlask.run(host='0.0.0.0', debug = True)
