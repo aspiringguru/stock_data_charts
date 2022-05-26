@@ -36,7 +36,7 @@ def sql1():
     conn = sqlite3.connect(db_filename)
     print("connected to database.")
     cur = conn.cursor()
-    sql = """select stockCode, longName, marketCap, dividendYield, currentPrice
+    sql = """select stockCode, longName, marketCap, dividendYield, currentPrice, trailingPE
     from yf_stock_data_view
     where marketCap !="None" AND marketCap !="None"
       AND dividendYield is NOT NULL
@@ -55,6 +55,7 @@ def sql1():
             "marketCap":row[2],
             "dividendYield":row[3],
             "currentPrice":row[4],
+            "trailingPE":row[5],
         }
         results.append(result)
     print("results:", results)

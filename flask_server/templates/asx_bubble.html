@@ -60,6 +60,7 @@
           var colours = [];
           var currentPrice = [];
           var longNames = [];
+          var trailingPE = [];
           for (let i = 0; i < data.length; i++) {
             x.push(data[i]['marketCap'])
             y.push(data[i]['dividendYield'])
@@ -68,6 +69,7 @@
             longNames.push(data[i]['longName'])
             colours.push("red")
             currentPrice.push(data[i]['currentPrice'])
+            trailingPE.push(data[i]['trailingPE'])
           }
           //console.log("x:", x)
           //console.log("y:", y)
@@ -83,8 +85,7 @@
             marker: {
               color: colours,
               size: sizes
-            },
-            currentPrice: 'currentPrice'
+            }
           };
           //
           var data = [trace1];
@@ -139,6 +140,7 @@
                 "Current Price: $"+currentPrice[index_position]+"<br>"+
                 "marketCap: "+numFormatter(x[index_position])+"<br>"+
                 "dividendYield: "+pctFormatter(y[index_position])+"<br>"+
+                "trailingPE: "+parseFloat(trailingPE[index_position]).toFixed(1)+"<br>"+
                 "<a href='https://www2.asx.com.au/markets/company/"+
                     data.points[0].text.slice(0, -3)+"'>ASX-"+
                     data.points[0].text.slice(0, -3)+"</a><br>";

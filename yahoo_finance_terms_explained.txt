@@ -1,0 +1,20 @@
+
+forwardPE, trailingPE
+
+forwardPE = produced by analysts, likely based on company asx announcements
+trailingPE = official history as lodged with asx.
+
+from https://finance.yahoo.com/news/compare-trailing-p-e-forward-153300693.html
+motley fool staff interview!!!
+Current P/E is current price over current earnings.
+Forward P/E is the current price over the expected earnings per share.
+When forward P/E is less than future P/E, it indicates that there is a
+projected increase in earnings per share, but that can be done by an increase
+in earnings and/or usually some combination of stock buybacks.
+
+from https://finance.yahoo.com/news/yahoo-u-breaking-down-pe-ratios-144725640.html
+the P/E ratio is the stock’s price divided by the earnings per share that the stock
+delivered over the last 12 months (also referred to as TTM, or “trailing twelve months”).
+
+Forward P/E ratio offers a way to measure future valuations of a company, by
+measuring earnings over the next 12 months (as opposed to TTM).
