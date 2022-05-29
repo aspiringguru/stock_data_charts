@@ -186,7 +186,8 @@ CREATE TABLE IF NOT EXISTS "yf_stock_data" (
 
 
 select stockCode, longName, marketCap, dividendYield, fiveYearAvgDividendYield, yield,
-trailingAnnualDividendYield, currentRatio, pegRatio, quickRatio, payoutRatio, shortRatio
+trailingAnnualDividendYield, currentRatio, pegRatio, quickRatio, payoutRatio, shortRatio,
+forwardPE, trailingPE
 from yf_stock_data_view
 where marketCap !="None" AND marketCap is NOT NULL
 order by marketCapInt desc
