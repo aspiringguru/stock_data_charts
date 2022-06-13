@@ -1,4 +1,6 @@
 *.db
 passwords.py
+*.pyc
 ssd/
 flask_server/flask_asx/
+non_repo/

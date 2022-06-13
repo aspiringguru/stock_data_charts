@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request, redirect
 from flask import send_file, send_from_directory, abort
 app = Flask(__name__)
 
@@ -7,34 +7,13 @@ import sqlite3
 from sqlite3 import Error
 
 
-@app.route('/chart_bubble')
-def chart_bubble():
-    print("route /chart_bubble start")
-    return render_template('bubble_1.html')
-
-
-@app.route('/chart_bubble_json')
-def chart_bubble_json():
-    print("route /chart_bubble start")
-    return render_template('bubble_1_load_json.html')
-
-
-@app.route('/home/<int:score>')
-def homeTemplate(score):
-    dict = {'Physics':97,'Computers':98,'Mathematics':99}
-    return render_template('flaskTemplate_1.html',name = "AmKy", marks = score, result = dict)
-
-@app.route('/test1/<int:score>')
-def test1(score):
-    print("score:", score)
-    return "this is route test1, score="+str(score)
 
 @app.route('/sql_stock_bubble_data')
 def sql1():
-    print("route sql1 start.")
+    #print("route sql1 start.")
     db_filename="yf_data_backup3.db"
     conn = sqlite3.connect(db_filename)
-    print("connected to database.")
+    #print("connected to database.")
     cur = conn.cursor()
     sql = """select stockCode, longName, marketCap, dividendYield, currentPrice, trailingPE
     from yf_stock_data_view
@@ -43,12 +22,12 @@ def sql1():
       AND dividendYield !="None"
       AND dividendYield <1.0
     order by marketCapInt desc;"""
-    print("executing sql")
+    #print("executing sql")
     cur.execute(sql)
     rows = cur.fetchall()
     results = []
     for row in rows:
-        print(row)
+        #print(row)
         result = {
             "stock_code":row[0],
             "longName":row[1],
@@ -58,21 +37,21 @@ def sql1():
             "trailingPE":row[5],
         }
         results.append(result)
-    print("results:", results)
+    #print("results:", results)
     return jsonify(results)
 
 #localhost:5000/get_json/prog_languages.json
 @app.route("/get_html/<filename>")
 def get_html(filename):
-    print("route get_html:", filename)
+    #print("route get_html:", filename)
     return render_template(filename)
 
 #localhost:5000/get_json/prog_languages.json
 @app.route("/get_json/<filename>")
 def get_json(filename):
-    print("get_json : app.root_path:", app.root_path)
+    #print("get_json : app.root_path:", app.root_path)
     json_dir = app.root_path+"\\static\\json\\"
-    print("json_dir:", json_dir)
+    #print("json_dir:", json_dir)
     try:
         return send_from_directory(directory=json_dir, path=filename, as_attachment=False)
         #returns file as downloadable if as_attachment=True.
@@ -81,10 +60,12 @@ def get_json(filename):
 
 @app.route('/')
 def home():
-    print("route home")
-    return "this is home"
+    #print("route home")
+    #return "this is home"
+    return redirect(f"/get_html/asx_bubble.html")
 
 
 if __name__ == '__main__':
-    print("start flask server main method.")
-    app.run(host='0.0.0.0', debug = True)
+    #print("start flask server main method.")
+    #app.run(host='0.0.0.0', debug = True, port=5050)
+    app.run(host='0.0.0.0', debug = False, port=5800)#aws server port 5800 = demo1.peerbanking.com.au

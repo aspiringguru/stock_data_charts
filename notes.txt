@@ -1,3 +1,18 @@
+d:
+cd D:\2020\coding\flask_plot_asx_data\flask_server
+flask_asx\Scripts\activate.bat
+cd D:\2020\coding\flask_plot_asx_data\flask_server_cleaned
+python server.py
+
+http://localhost:5000/chart_bubble simple demo constructs bubble chart using static data in html file.
+http://localhost:5000/chart_bubble_json  simple demo constructs bubble chart from static json
+http://localhost:5000/sql_stock_bubble_data   returns json file constructed from json query.
+http://localhost:5000/get_html/asx_bubble.html returns bubble chart constructed using json file.
+http://localhost:5000/home/5 simple construct of html page using url input
+http://localhost:5000/test1/5 simple construct of html page using url input
+http://localhost:5000/get_json/prog_languages.json returns json from /static/json
+
+#--------------------------------------
 use data collected by code in D:\2020\coding\asx_yfinance
 d:
 cd D:\2020\coding\asx_yfinance\

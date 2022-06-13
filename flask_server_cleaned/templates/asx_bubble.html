@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<!-- from https://codepen.io/pen
+    https://plotly.com/javascript/bubble-charts/#hover-text-on-bubble-charts
+    https://plotly.com/javascript/click-events/
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>ASX Plot Demo</title>
+    <!--<link rel="stylesheet" href="style.css"> -->
+    <!-- <script src='https://cdn.plot.ly/plotly-2.12.1.min.js'></script>  -->
+    <!-- <script src="https://d3js.org/d3.v4.min.js"></script> -->
+    <script src='/static/plotly-2.12.1.min.js'></script>
+    <script src="/static/d3.v4.min.js"></script>
+  </head>
+  <body>
+    <div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+    <div id="stock_info"></div>
+    <!-- page content -->
+    <script>
+      //console.log("start")
+      function searchStringInArray (str, strArray) {
+          for (var j=0; j<strArray.length; j++) {
+              if (strArray[j].match(str)) return j;
+          }
+          return -1;
+      }
+      function numFormatter(num) {
+        if(num < 1000){
+            return num; // if value < 1000, nothing to do
+        }else if(num > 999 && num < 100000){
+              return (num/1000).toFixed(2) + 'K'; // convert to K for number from > 1000 < 1 million
+          }else if(num > 999999 && num < 1000000000){
+              return (num/1000000).toFixed(2) + 'M'; // convert to M for number from > 1 million
+          }else {
+              return (num/1000000000).toFixed(2) + 'B'; // convert to M for number from > 1 million
+          }
+      }
+      function pctFormatter(num) {
+          return (num*100).toFixed(2)+" %"
+      }
+      //
+      d3.json("/sql_stock_bubble_data", function(data) {
+      //d3.json("prog_languages.json", function(data_) {
+      //d3.json("data_sample.json", function(data_) {
+      /*
+      {
+        "currentPrice": "101.25",
+        "dividendYield": "0.0233",
+        "marketCap": "289380597760",
+        "stock_code": "ANZPE.AX"
+      }
+      */
+          //console.log("data:", data)
+          //console.log("data.length:", data.length)
+          var x=[];
+          var y=[];
+          var labels = [];
+          var sizes = [];
+          var colours = [];
+          var currentPrice = [];
+          var longNames = [];
+          var trailingPE = [];
+          for (let i = 0; i < data.length; i++) {
+            x.push(data[i]['marketCap'])
+            y.push(data[i]['dividendYield'])
+            sizes.push(10)
+            labels.push(data[i]['stock_code'])
+            longNames.push(data[i]['longName'])
+            colours.push("red")
+            currentPrice.push(data[i]['currentPrice'])
+            trailingPE.push(data[i]['trailingPE'])
+          }
+          //console.log("x:", x)
+          //console.log("y:", y)
+          //console.log("sizes:", sizes)
+          //console.log("labels:", labels)
+          //console.log("colours:", colours)
+          //console.log("longNames:", longNames)
+          var trace1 = {
+            x: x,
+            y: y,
+            text: labels,
+            mode: 'markers',
+            marker: {
+              color: colours,
+              size: sizes
+            }
+          };
+          //
+          var data = [trace1];
+          //
+          var layout = {
+            title: 'ASX Shares',
+            showlegend: false,
+            height: 600,
+            width: 600,
+            xaxis: {
+              title: 'Market Cap',
+            },
+            yaxis: {
+              title: 'Dividend Yield',
+            }
+          };
+          const config = {
+            displayModeBar: false, // this is the line that hides the bar.
+          };
+          //
+          Plotly.newPlot('myDiv', data, layout, config);
+          var myPlot = document.getElementById('myDiv');
+          //console.log("typeof(myPlot):", typeof(myPlot))
+          //console.log("myPlot:", myPlot)
+          myPlot.on('plotly_click', function(data){
+              //console.log("plotly_click'd")
+              //console.log("data.points.length:", data.points.length)
+              var pts = '';
+              for(var i=0; i < data.points.length; i++){
+                  pts = 'x = '+data.points[i].x +'\ny = '+
+                      data.points[i].y.toPrecision(4) + '\n\n';
+                  //console.log("keys:", Object.keys(data.points[i]))
+                  //console.log("values:", Object.values(data.points[i]))
+                  //console.log("text:", data.points[i].text)
+              }
+          });
+          //
+          myPlot.on('plotly_hover', function(data){
+            //console.log("plotly_hover start")
+            //console.log("data:", data)
+            //console.log("data.points.length:", data.points.length)
+            //console.log("keys:", Object.keys(data.points[0]))
+            //console.log("values:", Object.values(data.points[0]))
+            //console.log("Stock Code:", data.points[0].text)
+            //console.log("currentPrice:", data.points[0].currentPrice)
+            index_position = searchStringInArray (data.points[0].text, labels)
+            //console.log("index_position:", index_position)
+            //console.log("currentPrice[index_position]:", currentPrice[index_position])
+            document.getElementById("stock_info").innerHTML =
+                "Stock code: "+data.points[0].text+"<br>"+
+                "longName : "+longNames[index_position]+"<br>"+
+                "Current Price: $"+currentPrice[index_position]+"<br>"+
+                "marketCap: "+numFormatter(x[index_position])+"<br>"+
+                "dividendYield: "+pctFormatter(y[index_position])+"<br>"+
+                "trailingPE: "+parseFloat(trailingPE[index_position]).toFixed(1)+"<br>"+
+                "<a href='https://www2.asx.com.au/markets/company/"+
+                    data.points[0].text.slice(0, -3)+"'>ASX-"+
+                    data.points[0].text.slice(0, -3)+"</a><br>";
+            //
+          })
+          //console.log("end")
+        });
+      </script>
+  </body>
+</html>
